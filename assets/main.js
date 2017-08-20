@@ -65,7 +65,7 @@ function getResults(input) {
     for (let i = 0, len = input.length; i < len; i++) {
         if(input[i] == code[i]){
             html += '<span class="glyphicon glyphicon-ok"></span>';
-        }else if(code.indexOf(input[i])){
+        }else if(code.indexOf(input[i]) > -1){
             correct = false;
             html += '<span class="glyphicon glyphicon-transfer"></span>';
         }else{
