@@ -1,24 +1,25 @@
-let answer = document.getElementById('answer');
-let attempt = document.getElementById('attempt');
+let answer = document.getElementById('answer').value;
+let attempt = document.getElementById('attempt').value;
 let maxTrial = 10;
 
 function guess() {
     let input = document.getElementById('user-guess');
     //add functionality to guess function here
-    if(answer.value == '' && attempt.value == '')
+    if(answer == '' && attempt == '')
         setHiddenFields();
 
     if(!validateInput(input.value)){
         return false;
     }else{
-        attempt.value = attempt.value+1;
+        attempt++;
+        document.getElementById('attempt').value = attempt;
     }
 
-    if(getResults(input.value)){
+    if(getResults(input.value)){ // win
         setMessage("You Win! :)");
         showAnswer(true);
-    }else if(attempt.value > maxTrial){
-        setMessage("You lose! :(");
+    }else if(attempt > maxTrial){ // lose
+        setMessage("You Lose! :(");
         showAnswer(false);
         showReplay();
     }else{
@@ -34,8 +35,8 @@ function setHiddenFields() {
     while(code.length>4){
         code = '0' + code;
     }
-    answer.value = code;
-    attempt.value = "0";
+    answer = code;
+    attempt = 0;
 }
 
 function setMessage(msg) {
@@ -53,31 +54,33 @@ function validateInput(input){
 
 function getResults(input) {
     let results = document.getElementById('results');
-    results.innerHTML +=
+    let html = '';
+    html +=
     '<div class="row">' +
         '<span class="col-md-6">' + input + '</span>' +
-        '<span class="col-md-6">';
+        '<div class="col-md-6">';
 
-    code = answer.value;
+    code = answer;
     correct = true;
     for (let i = 0, len = input.length; i < len; i++) {
         if(input[i] == code[i]){
-            results.innerHTML += '<span class="glyphicon glyphicon-ok"></span>';
+            html += '<span class="glyphicon glyphicon-ok"></span>';
         }else if(code.indexOf(input[i])){
             correct = false;
-            results.innerHTML += '<span class="glyphicon glyphicon-transfer"></span>';
+            html += '<span class="glyphicon glyphicon-transfer"></span>';
         }else{
             correct = false;
-            results.innerHTML += '<span class="glyphicon glyphicon-remove"></span>';
+            html += '<span class="glyphicon glyphicon-remove"></span>';
         }
     }
-    results.innerHTML += '</span></div>';
+    html += '</div></div>';
+    results.innerHTML += html;
     return correct;
 }
 
 function showAnswer(win) {
     let code = document.getElementById('code');
-    code.innerHTML = answer.value;
+    code.innerHTML = answer;
     if(win){
         code.className += " success";
     }else{
