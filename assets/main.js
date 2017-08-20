@@ -35,8 +35,8 @@ function setHiddenFields() {
     while(code.length>4){
         code = '0' + code;
     }
-    answer = code;
-    attempt = 0;
+    document.getElementById('answer').value = code;
+    document.getElementById('attempt').value = 0;
 }
 
 function setMessage(msg) {
