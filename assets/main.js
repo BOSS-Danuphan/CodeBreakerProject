@@ -32,7 +32,7 @@ function guess() {
 function setHiddenFields() {
     let code = Math.floor(Math.random()*10000);
     code = code.toString();
-    while(code.length>4){
+    while(code.length<4){
         code = '0' + code;
     }
     document.getElementById('answer').value = code;
