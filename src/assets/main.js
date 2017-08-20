@@ -1,8 +1,7 @@
-let answer = document.getElementById('answer').value;
-let attempt = document.getElementById('attempt').value;
-let maxTrial = 10;
-
 function guess() {
+    let answer = document.getElementById('answer').value;
+    let attempt = document.getElementById('attempt').value;
+    let maxTrial = 10;
     let input = document.getElementById('user-guess');
     //add functionality to guess function here
     if(answer == '' && attempt == '')
@@ -18,6 +17,7 @@ function guess() {
     if(getResults(input.value)){ // win
         setMessage("You Win! :)");
         showAnswer(true);
+        showReplay();
     }else if(attempt > maxTrial){ // lose
         setMessage("You Lose! :(");
         showAnswer(false);
@@ -60,7 +60,7 @@ function getResults(input) {
         '<span class="col-md-6">' + input + '</span>' +
         '<div class="col-md-6">';
 
-    code = answer;
+    code = document.getElementById('answer').value;
     correct = true;
     for (let i = 0, len = input.length; i < len; i++) {
         if(input[i] == code[i]){
@@ -80,7 +80,7 @@ function getResults(input) {
 
 function showAnswer(win) {
     let code = document.getElementById('code');
-    code.innerHTML = answer;
+    code.innerHTML = document.getElementById('answer').value;
     if(win){
         code.className += " success";
     }else{
